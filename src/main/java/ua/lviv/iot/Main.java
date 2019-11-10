@@ -5,27 +5,26 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.*;
 
-public class GraphInit {
+public class Main {
 
     private static List<String> listS = new ArrayList<>();
     private static Graph graph = new Graph();
 
-    private static void topologicalSort() {
-
+    public static List<String> topologicalSort(Graph g) {
         List<String> order = new ArrayList<>();
 
         Map<String, Boolean> visited = new HashMap<>();
-        for (Node node : graph.getNodes()) {
+        for (Node node : g.getNodes()) {
             visited.put(node.getName(), false);
         }
 
-        for (Node node : graph.getNodes()) {
+        for (Node node : g.getNodes()) {
             if (!visited.get(node.getName())) {
-                checkAndAdd(graph, node.getName(), visited, order);
+                checkAndAdd(g, node.getName(), visited, order);
             }
         }
 
-        System.out.println(order);
+        return order;
     }
 
     private static void checkAndAdd(Graph graph, String name, Map<String, Boolean> visited, List<String> order) {
@@ -44,8 +43,9 @@ public class GraphInit {
 
     public static void main(String[] args) {
         init();
-        topologicalSort();
-        System.out.println();
+        List<String> list;
+        list = topologicalSort(graph);
+        System.out.println(list);
     }
 
     private static void init() {
